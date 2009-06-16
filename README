@@ -1,0 +1,43 @@
+ZOClock 1.0.0
+-------------
+
+The ZOClock (Zero-One Clock) program emulate
+two-line LED display to show the time in binary form.
+The upper line of LEDs displays hours (12 hour clock).
+The lower line of LEDs displays minutes.
+
+You can get ZOClock here: http://zoclock.googlecode.com/
+
+Licensing
+---------
+
+ZOClock is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ZOClock is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ZOClock.  If not, see <http://www.gnu.org/licenses/>.
+
+Building
+--------
+
+Before building, you will need to have the Qt4 library installed
+on your system (http://www.trolltech.com/).
+
+Build:
+$ qmake # or qmake-qt4
+$ make  # or mingw32-make or nmake or other
+Test it:
+$ bin/zoclock
+Install:
+$ sudo cp bin/zoclock /usr/local/bin/zoclock
+
+Enjoy!
+Alexey Michurin
+a.michurin@gmail.com
