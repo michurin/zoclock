@@ -1,4 +1,4 @@
-VERSION = 1.0.0
+VERSION = 1.0.1
 QT += core gui
 CONFIG += release warn_on qt
 # CONFIG += qt debug

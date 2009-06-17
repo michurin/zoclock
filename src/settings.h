@@ -37,6 +37,7 @@ private:
     static const QString FIELD_G1;
     static const QString FIELD_B1;
     static const QString FIELD_LOCK;
+    static const QString FIELD_TOP;
 
     static const int def_r0;
     static const int def_g0;
@@ -45,6 +46,7 @@ private:
     static const int def_g1;
     static const int def_b1;
     static const bool def_lock;
+    static const bool def_ontop;
 
     int def_x;
     int def_y;
@@ -52,8 +54,8 @@ private:
 public:
     Settings(int, int);
     void get_oem_colors(QColor &, QColor &);
-    void read(int &, int &, QColor &, QColor &, bool &);
-    void write(int, int, const QColor &, const QColor &, bool);
+    void read(int &, int &, QColor &, QColor &, bool &, bool &);
+    void write(int, int, const QColor &, const QColor &, bool, bool);
 };
 
 #endif

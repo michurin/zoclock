@@ -18,41 +18,45 @@
  */
 
 #include "popupmenu.h"
-#include <iostream>
 
 PopupMenu::PopupMenu(QWidget * parent)
     : Inherited(parent)
 {
     QAction* a;
-    this->addSeparator();
+    addSeparator();
     a = new QAction(tr("Lock window position"), this);
     a->setCheckable(true);
-    this->addAction(a);
+    addAction(a);
     lock_pos = a;
-    this->addSeparator();
+    a = new QAction(tr("Keep window always on top"), this);
+    a->setCheckable(true);
+    addAction(a);
+    connect(a, SIGNAL(triggered()), parent, SLOT(menu_ontop()));
+    window_ontop = a;
+    addSeparator();
     a = new QAction(tr("Color of \"0\" indicator"), this);
-    this->addAction(a);
+    addAction(a);
     connect(a, SIGNAL(triggered()), this, SLOT(color_0()));
     a = new QAction(tr("Color of \"1\" indicator"), this);
-    this->addAction(a);
+    addAction(a);
     connect(a, SIGNAL(triggered()), this, SLOT(color_1()));
     a = new QAction(tr("Restore original colors"), this);
-    this->addAction(a);
+    addAction(a);
     connect(a, SIGNAL(triggered()), parent, SLOT(menu_oem_colors()));
-    this->addSeparator();
+    addSeparator();
     a = new QAction(tr("Save current settings as default"), this);
-    this->addAction(a);
+    addAction(a);
     connect(a, SIGNAL(triggered()), parent, SLOT(menu_save_setings()));
-    this->addSeparator();
+    addSeparator();
     a = new QAction(tr("About"), this);
     connect(a, SIGNAL(triggered()), parent, SLOT(menu_about()));
-    this->addAction(a);
+    addAction(a);
     a = new QAction(tr("About Qt"), this);
     connect(a, SIGNAL(triggered()), parent, SLOT(menu_about_qt()));
-    this->addAction(a);
-    this->addSeparator();
+    addAction(a);
+    addSeparator();
     a = new QAction(tr("Quit"), this);
-    this->addAction(a);
+    addAction(a);
     connect(a, SIGNAL(triggered()), parent, SIGNAL(menu_quit()));
     connect(this, SIGNAL(set_color(int)), parent, SLOT(menu_color(int)));
 }
@@ -67,6 +71,18 @@ void
 PopupMenu::set_window_lock(bool s)
 {
     lock_pos->setChecked(s);
+}
+
+bool
+PopupMenu::is_window_ontop()
+{
+    return window_ontop->isChecked();
+}
+
+void
+PopupMenu::set_window_ontop(bool s)
+{
+    window_ontop->setChecked(s);
 }
 
 /*

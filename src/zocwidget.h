@@ -46,6 +46,7 @@ private:
     Settings settings;
 
     void setColor(int, QColor &);
+    void setOnTop(bool);
 
     void updateLine(int);
     void updateView();
@@ -66,6 +67,7 @@ signals:
 
 public slots:
     void menu_save_setings();
+    void menu_ontop();
     void menu_oem_colors();
     void menu_color(int);
     void menu_about();

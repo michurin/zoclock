@@ -28,6 +28,7 @@ const QString Settings::FIELD_R1("color_1/red");
 const QString Settings::FIELD_G1("color_1/green");
 const QString Settings::FIELD_B1("color_1/blue");
 const QString Settings::FIELD_LOCK("window/lock");
+const QString Settings::FIELD_TOP("window/ontop");
 
 const int Settings::def_r0(0);
 const int Settings::def_g0(30);
@@ -36,6 +37,7 @@ const int Settings::def_r1(0);
 const int Settings::def_g1(180);
 const int Settings::def_b1(0);
 const bool Settings::def_lock(false);
+const bool Settings::def_ontop(true);
 
 Settings::Settings(int x, int y)
     : keeper("michurin", "zoclock"),
@@ -45,7 +47,7 @@ Settings::Settings(int x, int y)
 }
 
 void
-Settings::read(int &x, int &y, QColor &c0, QColor &c1, bool &lock)
+Settings::read(int &x, int &y, QColor &c0, QColor &c1, bool &lock, bool &ontop)
 {
     x = keeper.value(FIELD_X, def_x).toInt();
     y = keeper.value(FIELD_Y, def_y).toInt();
@@ -59,10 +61,11 @@ Settings::read(int &x, int &y, QColor &c0, QColor &c1, bool &lock)
     b = keeper.value(FIELD_B1, def_b1).toInt();
     c1.setRgb(r, g, b);
     lock = keeper.value(FIELD_LOCK, def_lock).toBool();
+    ontop = keeper.value(FIELD_TOP, def_ontop).toBool();
 }
 
 void
-Settings::write(int x, int y, const QColor &c0, const QColor &c1, bool lock)
+Settings::write(int x, int y, const QColor &c0, const QColor &c1, bool lock, bool ontop)
 {
     keeper.setValue(FIELD_X, x);
     keeper.setValue(FIELD_Y, y);
@@ -76,6 +79,7 @@ Settings::write(int x, int y, const QColor &c0, const QColor &c1, bool lock)
     keeper.setValue(FIELD_G1, g);
     keeper.setValue(FIELD_B1, b);
     keeper.setValue(FIELD_LOCK, lock);
+    keeper.setValue(FIELD_TOP, ontop);
 }
 
 void

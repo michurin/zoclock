@@ -20,7 +20,6 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QMouseEvent>
-#include <iostream>
 #include <QTime>
 #include <QMessageBox>
 #include <QColorDialog>
@@ -71,8 +70,27 @@ BinClockWidget::setColor(int i, QColor & c)
     palettes[i].setColor(QPalette::QPalette::Dark, c.darker());
 }
 
+void
+BinClockWidget::setOnTop(bool f)
+{
+    Qt::WindowFlags wf = windowFlags();
+    bool isv = isVisible();
+    if (f) {
+        wf |= Qt::WindowStaysOnTopHint;
+    } else {
+        wf &= ~Qt::WindowStaysOnTopHint;
+    }
+    if (wf != windowFlags()) {
+        setWindowFlags(wf);
+        if (isv) {
+            show();
+            raise();
+        }
+    }
+}
+
 BinClockWidget::BinClockWidget(int x0, int x1, int y0, int y1)
-    : Inherited(0, Qt::SplashScreen),
+    : Inherited(0, Qt::SplashScreen | Qt::WindowStaysOnTopHint),
       bound_x0(x0),
       bound_x1(x1 - ZOC_WINDOW_WIDTH + 1),
       bound_y0(y0),
@@ -97,8 +115,11 @@ BinClockWidget::BinClockWidget(int x0, int x1, int y0, int y1)
     QColor c0, c1;
     int wx, wy;
     bool lock;
-    settings.read(wx, wy, c0, c1, lock);
+    bool ontop;
+    settings.read(wx, wy, c0, c1, lock, ontop);
     popup_menu.set_window_lock(lock);
+    popup_menu.set_window_ontop(ontop);
+    setOnTop(ontop);
     setColor(0, c0);
     setColor(1, c1);
     move(wx, wy);
@@ -162,13 +183,21 @@ BinClockWidget::menu_save_setings()
                    pos().y(),
                    palettes[0].color(QPalette::Background),
                    palettes[1].color(QPalette::Background),
-                   popup_menu.is_window_locked());
+                   popup_menu.is_window_locked(),
+                   popup_menu.is_window_ontop());
     QMessageBox::information(this,
         tr("Settings has been saved"),
-        tr("Current window position, colors and lock status"
+        tr("Current window position, colors, lock status"
+           " and always on top status"
            " has been saved as default."
            " They would be restored automaticaly"
            " the next time you start ZOClock."));
+}
+
+void
+BinClockWidget::menu_ontop()
+{
+    setOnTop(popup_menu.is_window_ontop());
 }
 
 void

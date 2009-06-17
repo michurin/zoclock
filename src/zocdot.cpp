@@ -23,7 +23,7 @@
 BinClockDot::BinClockDot(QWidget *parent)
     : Inherited(parent)
 {
-    this->setFrameStyle(QFrame::Panel | QFrame::Raised);
-    this->setLineWidth(ZOC_WINDOW_BORDER);
-    this->setAutoFillBackground(true);
+    setFrameStyle(QFrame::Panel | QFrame::Raised);
+    setLineWidth(ZOC_WINDOW_BORDER);
+    setAutoFillBackground(true);
 }

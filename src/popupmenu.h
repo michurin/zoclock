@@ -31,11 +31,14 @@ class PopupMenu : public QMenu
 
 private:
     QAction* lock_pos;
+    QAction* window_ontop;
 
 public:
     PopupMenu(QWidget * parent = 0);
     bool is_window_locked();
     void set_window_lock(bool);
+    bool is_window_ontop();
+    void set_window_ontop(bool);
 
 signals:
     void set_color(int);
