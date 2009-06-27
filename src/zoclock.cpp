@@ -25,9 +25,7 @@ int
 main(int argc, char **argv)
 {
     QApplication app(argc, argv);
-    QDesktopWidget * dsk = app.desktop();
-    QRect rect(dsk->screenGeometry());
-    BinClockWidget zoc(rect.left(), rect.right(), rect.top(), rect.bottom());
+    BinClockWidget zoc(app.desktop()->screenGeometry());
     QObject::connect(&zoc, SIGNAL(menu_quit()), &app, SLOT(quit()));
     zoc.show();
     return app.exec();

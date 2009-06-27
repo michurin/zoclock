@@ -24,6 +24,9 @@
 #define ZOC_WINDOW_HEIGHT 18
 #define ZOC_WINDOW_BORDER 1
 
+#define ZOC_TOOLTIP_EXTRAWIDTH 10
+#define ZOC_TOOLTIP_GAP 2
+
 #define _STR_EXPAND(t) #t
 #define STR(t) _STR_EXPAND(t)
 

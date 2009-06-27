@@ -1,0 +1,17 @@
+Source: zoclock
+Section: x11
+Priority: optional
+Maintainer: Alexey Michurin <a.michurin@gmail.com>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.0
+Homepage: http://zoclock.googlecode.com/
+
+Package: zoclock
+Architecture: i386
+Depends: ${shlibs:Depends}, libqtcore4, libqtgui4
+Description: The ZOClock (Zero-One Clock) is a desktip
+ widget. It emulate two-line LED display to show the
+ time in binary form in small pretty window.
+ Many aspects of ZOClock may be tune to good fit your
+ desktup environment.
+ 

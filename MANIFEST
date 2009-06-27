@@ -2,8 +2,6 @@
 ./src/popupmenu.h
 ./src/settings.cpp
 ./src/settings.h
-./src/zocdot.cpp
-./src/zocdot.h
 ./src/zoclock.cpp
 ./src/zoclock.h
 ./src/zocwidget.cpp

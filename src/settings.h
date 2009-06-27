@@ -22,6 +22,8 @@
 
 #include <QSettings>
 #include <QColor>
+#include <QPoint>
+#include <QFont>
 
 class Settings
 {
@@ -30,32 +32,44 @@ private:
 
     static const QString FIELD_X;
     static const QString FIELD_Y;
-    static const QString FIELD_R0;
-    static const QString FIELD_G0;
-    static const QString FIELD_B0;
-    static const QString FIELD_R1;
-    static const QString FIELD_G1;
-    static const QString FIELD_B1;
+    static const QString FIELD_COLOR_0;
+    static const QString FIELD_COLOR_1;
     static const QString FIELD_LOCK;
     static const QString FIELD_TOP;
+    static const QString FIELD_HOURS_MODE;
+    static const QString FIELD_NUM_BASE;
+    static const QString FIELD_TT_TIME;
+    static const QString FIELD_TT_UNIXTIME;
+    static const QString FIELD_TT_FONT;
+    static const QString FIELD_TT_FG;
+    static const QString FIELD_TT_BG;
 
-    static const int def_r0;
-    static const int def_g0;
-    static const int def_b0;
-    static const int def_r1;
-    static const int def_g1;
-    static const int def_b1;
+    static const QString def_color_0;
+    static const QString def_color_1;
     static const bool def_lock;
     static const bool def_ontop;
+    static const int def_hours_mode;
+    static const int def_num_base;
+    static const bool def_tt_time;
+    static const bool def_tt_unixtime;
+    static const QString def_tt_font;
+    static const QString def_tt_fg;
+    static const QString def_tt_bg;
 
     int def_x;
     int def_y;
 
+    void getColor(QString const &, QString const &, QColor &);
+
 public:
-    Settings(int, int);
-    void get_oem_colors(QColor &, QColor &);
-    void read(int &, int &, QColor &, QColor &, bool &, bool &);
-    void write(int, int, const QColor &, const QColor &, bool, bool);
+    Settings(QPoint const &);
+    void get_oem_colors(QColor &, QColor &, QColor &, QColor &);
+    void read(QPoint &, QColor &, QColor &,
+             bool &, bool &, int &, int &, bool &, bool &,
+             QFont &, QColor &, QColor &);
+    void write(QPoint const &, QColor const &, QColor const &,
+             bool, bool, int, int, bool, bool,
+             QFont const &, QColor const &, QColor const &);
 };
 
 #endif

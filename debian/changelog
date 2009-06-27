@@ -1,0 +1,5 @@
+zoclock (1.1.0-1) stable
+
+  * Initial release, that packed in deb-package
+
+ -- Alexey Michurin <a.michurin@gmail.com>  Wed, 24 Jun 2009 11:55:23 +0400

@@ -33,10 +33,30 @@ on your system (http://www.trolltech.com/).
 Build:
 $ qmake # or qmake-qt4
 $ make  # or mingw32-make or nmake or other
+
 Test it:
-$ bin/zoclock
+$ ./zoclock
+
 Install:
-$ sudo cp bin/zoclock /usr/local/bin/zoclock
+$ sudo cp ./zoclock /usr/local/bin/zoclock
+or
+$ sudo make install
+or
+$ sudo make DESTDIR=/opt/bin install
+
+Debian/Ubuntu users
+-------------------
+
+Download binary package form download page.
+Install:
+$ sudo dpkg -i zoclock_1.1.0-1_i386.deb
+Deinstall:
+$ sudo dpkg -r zoclock
+
+If you want to build Debian package yourself, you
+need download complete source tree, with debian
+directory. To create package run the command.
+$ dpkg-buildpackage -rfakeroot
 
 Enjoy!
 Alexey Michurin

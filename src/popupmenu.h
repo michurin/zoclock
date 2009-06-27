@@ -32,6 +32,12 @@ class PopupMenu : public QMenu
 private:
     QAction* lock_pos;
     QAction* window_ontop;
+    QAction* hours_mode_actions[3];
+    QAction* tooltip_dec_action;
+    QAction* tooltip_hex_action;
+    QAction* tooltip_unixtime_action;
+    QAction* tooltip_time_action;
+    int hours_mode_idx;
 
 public:
     PopupMenu(QWidget * parent = 0);
@@ -39,13 +45,26 @@ public:
     void set_window_lock(bool);
     bool is_window_ontop();
     void set_window_ontop(bool);
+    int get_hours_mode();
+    bool is_hours_ampm_mode();
+    bool is_hours_12_mode();
+    void set_hours_mode(int);
+    int get_base();
+    void set_base(int);
+    bool is_time_on_tooltip();
+    void set_time_on_tooltip(bool);
+    bool is_unixtime_on_tooltip();
+    void set_unixtime_on_tooltip(bool);
+    bool is_any_on_tooltip();
 
 signals:
     void set_color(int);
+    void update_hours_mode();
 
-public slots:
+private slots:
     void color_0();
     void color_1();
+    void hours_mode();
 };
 
 #endif

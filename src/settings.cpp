@@ -21,70 +21,96 @@
 
 const QString Settings::FIELD_X("window/pos_x");
 const QString Settings::FIELD_Y("window/pos_y");
-const QString Settings::FIELD_R0("color_0/red");
-const QString Settings::FIELD_G0("color_0/green");
-const QString Settings::FIELD_B0("color_0/blue");
-const QString Settings::FIELD_R1("color_1/red");
-const QString Settings::FIELD_G1("color_1/green");
-const QString Settings::FIELD_B1("color_1/blue");
+const QString Settings::FIELD_COLOR_0("window/color_0");
+const QString Settings::FIELD_COLOR_1("window/color_1");
 const QString Settings::FIELD_LOCK("window/lock");
 const QString Settings::FIELD_TOP("window/ontop");
+const QString Settings::FIELD_HOURS_MODE("view/hours_mode");
+const QString Settings::FIELD_NUM_BASE("tooltip/num_base");
+const QString Settings::FIELD_TT_TIME("tooltip/show_time");
+const QString Settings::FIELD_TT_UNIXTIME("tooltip/show_unix_time");
+const QString Settings::FIELD_TT_FONT("tooltip/font");
+const QString Settings::FIELD_TT_FG("tooltip/foreground");
+const QString Settings::FIELD_TT_BG("tooltip/background");
 
-const int Settings::def_r0(0);
-const int Settings::def_g0(30);
-const int Settings::def_b0(0);
-const int Settings::def_r1(0);
-const int Settings::def_g1(180);
-const int Settings::def_b1(0);
+const QString Settings::def_color_0("#333333");
+const QString Settings::def_color_1("#009900");
 const bool Settings::def_lock(false);
 const bool Settings::def_ontop(true);
+const int Settings::def_hours_mode(0);
+const int Settings::def_num_base(10);
+const bool Settings::def_tt_time(true);
+const bool Settings::def_tt_unixtime(false);
+const QString Settings::def_tt_font("");
+const QString Settings::def_tt_fg("#000000");
+const QString Settings::def_tt_bg("#ffff66");
 
-Settings::Settings(int x, int y)
+Settings::Settings(QPoint const & p)
     : keeper("michurin", "zoclock"),
-      def_x(x),
-      def_y(y)
+      def_x(p.x()),
+      def_y(p.y())
 {
 }
 
 void
-Settings::read(int &x, int &y, QColor &c0, QColor &c1, bool &lock, bool &ontop)
+Settings::getColor(QString const & field, QString const & def, QColor & c) {
+    c.setNamedColor(keeper.value(field, def).toString());
+    if (! c.isValid()) {
+        c = def;
+    }
+}
+
+void
+Settings::read(QPoint & wxy,
+               QColor & c0, QColor & c1,
+               bool & lock, bool & ontop,
+               int & hours_mode, int & num_base,
+               bool & tt_time, bool & tt_unixtime,
+               QFont & tt_font, QColor & tt_fg, QColor & tt_bg)
 {
-    x = keeper.value(FIELD_X, def_x).toInt();
-    y = keeper.value(FIELD_Y, def_y).toInt();
-    int r, g, b;
-    r = keeper.value(FIELD_R0, def_r0).toInt();
-    g = keeper.value(FIELD_G0, def_g0).toInt();
-    b = keeper.value(FIELD_B0, def_b0).toInt();
-    c0.setRgb(r, g, b);
-    r = keeper.value(FIELD_R1, def_r1).toInt();
-    g = keeper.value(FIELD_G1, def_g1).toInt();
-    b = keeper.value(FIELD_B1, def_b1).toInt();
-    c1.setRgb(r, g, b);
+    wxy = QPoint(keeper.value(FIELD_X, def_x).toInt(),
+                 keeper.value(FIELD_Y, def_y).toInt());
+    getColor(FIELD_COLOR_0, def_color_0, c0);
+    getColor(FIELD_COLOR_1, def_color_1, c1);
+    getColor(FIELD_TT_FG, def_tt_fg, tt_fg);
+    getColor(FIELD_TT_BG, def_tt_bg, tt_bg);
     lock = keeper.value(FIELD_LOCK, def_lock).toBool();
     ontop = keeper.value(FIELD_TOP, def_ontop).toBool();
+    hours_mode = keeper.value(FIELD_HOURS_MODE, def_hours_mode).toInt();
+    num_base = keeper.value(FIELD_NUM_BASE, def_num_base).toInt();
+    tt_time = keeper.value(FIELD_TT_TIME, def_tt_time).toBool();
+    tt_unixtime = keeper.value(FIELD_TT_UNIXTIME, def_tt_unixtime).toBool();
+    tt_font.fromString(keeper.value(FIELD_TT_FONT, def_tt_font).toString());
 }
 
 void
-Settings::write(int x, int y, const QColor &c0, const QColor &c1, bool lock, bool ontop)
+Settings::write(QPoint const & wxy,
+                const QColor & c0, const QColor & c1,
+                bool lock, bool ontop,
+                int hours_mode, int num_base,
+                bool tt_time, bool tt_unixtime,
+                QFont const & tt_font, QColor const & tt_fg, QColor const & tt_bg)
 {
-    keeper.setValue(FIELD_X, x);
-    keeper.setValue(FIELD_Y, y);
-    int r, g, b;
-    c0.getRgb(&r, &g, &b);
-    keeper.setValue(FIELD_R0, r);
-    keeper.setValue(FIELD_G0, g);
-    keeper.setValue(FIELD_B0, b);
-    c1.getRgb(&r, &g, &b);
-    keeper.setValue(FIELD_R1, r);
-    keeper.setValue(FIELD_G1, g);
-    keeper.setValue(FIELD_B1, b);
+    keeper.setValue(FIELD_X, wxy.x());
+    keeper.setValue(FIELD_Y, wxy.y());
+    keeper.setValue(FIELD_COLOR_0, c0.name());
+    keeper.setValue(FIELD_COLOR_1, c1.name());
     keeper.setValue(FIELD_LOCK, lock);
     keeper.setValue(FIELD_TOP, ontop);
+    keeper.setValue(FIELD_HOURS_MODE, hours_mode);
+    keeper.setValue(FIELD_NUM_BASE, num_base);
+    keeper.setValue(FIELD_TT_TIME, tt_time);
+    keeper.setValue(FIELD_TT_UNIXTIME, tt_unixtime);
+    keeper.setValue(FIELD_TT_FONT, tt_font.toString());
+    keeper.setValue(FIELD_TT_FG, tt_fg.name());
+    keeper.setValue(FIELD_TT_BG, tt_bg.name());
 }
 
 void
-Settings::get_oem_colors(QColor &c0, QColor &c1)
+Settings::get_oem_colors(QColor &c0, QColor &c1, QColor &tt_fg, QColor &tt_bg)
 {
-    c0.setRgb(def_r0, def_g0, def_b0);
-    c1.setRgb(def_r1, def_g1, def_b1);
+    c0 = def_color_0;
+    c1 = def_color_1;
+    tt_bg = def_tt_bg;
+    tt_fg = def_tt_fg;
 }

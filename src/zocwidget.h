@@ -21,7 +21,8 @@
 #define ZOCWIDGET_H_
 
 #include <QFrame>
-#include "zocdot.h"
+#include <QLabel>
+#include <QPalette>
 #include "popupmenu.h"
 #include "settings.h"
 
@@ -33,32 +34,48 @@ class BinClockWidget : public QFrame
     typedef QFrame Inherited;
 
 private:
-    int bound_x0;
-    int bound_x1;
-    int bound_y0;
-    int bound_y1;
-    QPalette palettes[2];
-    int displayData[2];
-    int timerId;
-    BinClockDot *displayDots[2][6];
-    QPoint click_pos;
-    PopupMenu popup_menu;
-    Settings settings;
 
-    void setColor(int, QColor &);
+    static const QString TOOLTIP_TIME_SEPERATOR;
+    static const QString TOOLTIP_TIME_AM_SIG;
+    static const QString TOOLTIP_TIME_PM_SIG;
+    static const QString TOOLTIP_TIME_LSEPERATOR;
+
+    QRect screen_geometry;
+    QPalette palettes[2];
+    int timerId;
+    int wall_clock_hour;
+    int wall_clock_minute;
+    int wall_clock_time;
+    QFrame displayDots[2][6];
+    QPoint click_pos;
+    Settings settings;
+    QLabel popup_tip;
+    PopupMenu popup_menu;
+
+    void setColor(int, QColor const &);
     void setOnTop(bool);
 
-    void updateLine(int);
+    int wallClockHour();
+    void updateLine(int, int);
     void updateView();
-    void updateState();
+    void appendToToolTip(int, QString &);
+    void updateToolTip(bool);
+    bool updateWallClock();
+    void updateState(bool);
+    void setToolTipColor(QPalette::ColorRole);
+    void setToolTipColors(QColor const &, QColor const &);
 
 public:
-    BinClockWidget(int, int, int, int);
+    BinClockWidget(QRect const &);
 
     void timerEvent(QTimerEvent *);
-    void mousePressEvent(QMouseEvent*);
-    void mouseMoveEvent(QMouseEvent*);
-    void move(int x, int y);
+    void mousePressEvent(QMouseEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
+    void enterEvent(QEvent *);
+    void leaveEvent(QEvent *);
+        
+    void move(QPoint const &);
     void show();
     void hide();
 
@@ -72,6 +89,10 @@ public slots:
     void menu_color(int);
     void menu_about();
     void menu_about_qt();
+    void menu_hours_mode();
+    void menu_tooltip_font();
+    void menu_tooltip_bg();
+    void menu_tooltip_fg();
 };
 
 #endif
