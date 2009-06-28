@@ -370,7 +370,7 @@ BinClockWidget::menu_about()
            "<p>Released under the terms of the"
            " <a href=\"http://www.gnu.org/licenses/\">GNU GPL v3</a></p>"
            "<p>The ZOClock (Zero-One Clock) is a tiny desktop widget."
-           " The program emulate"
+           " The program emulates"
            " two-line LED display to show the time in"
            " binary form."
            " It highly customizable to better fit with"
