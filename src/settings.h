@@ -52,9 +52,10 @@ private:
     static const int def_num_base;
     static const bool def_tt_time;
     static const bool def_tt_unixtime;
-    static const QString def_tt_font;
-    static const QString def_tt_fg;
-    static const QString def_tt_bg;
+    
+    QString def_tt_fg;
+    QString def_tt_bg;
+    QString def_tt_font;
 
     int def_x;
     int def_y;

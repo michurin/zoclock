@@ -17,6 +17,7 @@
  * along with ZOClock. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QToolTip>
 #include "settings.h"
 
 const QString Settings::FIELD_X("window/pos_x");
@@ -41,12 +42,12 @@ const int Settings::def_hours_mode(0);
 const int Settings::def_num_base(10);
 const bool Settings::def_tt_time(true);
 const bool Settings::def_tt_unixtime(false);
-const QString Settings::def_tt_font("");
-const QString Settings::def_tt_fg("#000000");
-const QString Settings::def_tt_bg("#ffff66");
 
 Settings::Settings(QPoint const & p)
     : keeper("michurin", "zoclock"),
+      def_tt_fg(QToolTip::palette().color(QPalette::Foreground).name()),
+      def_tt_bg(QToolTip::palette().color(QPalette::Background).name()),
+      def_tt_font(QToolTip::font().toString()),
       def_x(p.x()),
       def_y(p.y())
 {
