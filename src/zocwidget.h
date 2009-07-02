@@ -23,6 +23,7 @@
 #include <QFrame>
 #include <QLabel>
 #include <QPalette>
+#include <QDateTime>
 #include "popupmenu.h"
 #include "settings.h"
 
@@ -36,6 +37,7 @@ class BinClockWidget : public QFrame
 private:
 
     static const QString TOOLTIP_TIME_SEPERATOR;
+    static const QString TOOLTIP_DATE_SEPERATOR;
     static const QString TOOLTIP_TIME_AM_SIG;
     static const QString TOOLTIP_TIME_PM_SIG;
     static const QString TOOLTIP_TIME_LSEPERATOR;
@@ -43,6 +45,7 @@ private:
     QRect screen_geometry;
     QPalette palettes[2];
     int timerId;
+    QDateTime wall_clock_datetime;
     int wall_clock_hour;
     int wall_clock_minute;
     int wall_clock_time;

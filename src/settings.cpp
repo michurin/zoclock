@@ -29,6 +29,7 @@ const QString Settings::FIELD_TOP("window/ontop");
 const QString Settings::FIELD_HOURS_MODE("view/hours_mode");
 const QString Settings::FIELD_NUM_BASE("tooltip/num_base");
 const QString Settings::FIELD_TT_TIME("tooltip/show_time");
+const QString Settings::FIELD_TT_DATE("tooltip/show_date");
 const QString Settings::FIELD_TT_UNIXTIME("tooltip/show_unix_time");
 const QString Settings::FIELD_TT_FONT("tooltip/font");
 const QString Settings::FIELD_TT_FG("tooltip/foreground");
@@ -41,6 +42,7 @@ const bool Settings::def_ontop(true);
 const int Settings::def_hours_mode(0);
 const int Settings::def_num_base(10);
 const bool Settings::def_tt_time(true);
+const bool Settings::def_tt_date(true);
 const bool Settings::def_tt_unixtime(false);
 
 Settings::Settings(QPoint const & p)
@@ -66,7 +68,7 @@ Settings::read(QPoint & wxy,
                QColor & c0, QColor & c1,
                bool & lock, bool & ontop,
                int & hours_mode, int & num_base,
-               bool & tt_time, bool & tt_unixtime,
+               bool & tt_time, bool & tt_date, bool & tt_unixtime,
                QFont & tt_font, QColor & tt_fg, QColor & tt_bg)
 {
     wxy = QPoint(keeper.value(FIELD_X, def_x).toInt(),
@@ -80,6 +82,7 @@ Settings::read(QPoint & wxy,
     hours_mode = keeper.value(FIELD_HOURS_MODE, def_hours_mode).toInt();
     num_base = keeper.value(FIELD_NUM_BASE, def_num_base).toInt();
     tt_time = keeper.value(FIELD_TT_TIME, def_tt_time).toBool();
+    tt_date = keeper.value(FIELD_TT_DATE, def_tt_date).toBool();
     tt_unixtime = keeper.value(FIELD_TT_UNIXTIME, def_tt_unixtime).toBool();
     tt_font.fromString(keeper.value(FIELD_TT_FONT, def_tt_font).toString());
 }
@@ -89,7 +92,7 @@ Settings::write(QPoint const & wxy,
                 const QColor & c0, const QColor & c1,
                 bool lock, bool ontop,
                 int hours_mode, int num_base,
-                bool tt_time, bool tt_unixtime,
+                bool tt_time, bool tt_date, bool tt_unixtime,
                 QFont const & tt_font, QColor const & tt_fg, QColor const & tt_bg)
 {
     keeper.setValue(FIELD_X, wxy.x());
@@ -101,6 +104,7 @@ Settings::write(QPoint const & wxy,
     keeper.setValue(FIELD_HOURS_MODE, hours_mode);
     keeper.setValue(FIELD_NUM_BASE, num_base);
     keeper.setValue(FIELD_TT_TIME, tt_time);
+    keeper.setValue(FIELD_TT_DATE, tt_date);
     keeper.setValue(FIELD_TT_UNIXTIME, tt_unixtime);
     keeper.setValue(FIELD_TT_FONT, tt_font.toString());
     keeper.setValue(FIELD_TT_FG, tt_fg.name());

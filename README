@@ -1,4 +1,4 @@
-ZOClock 1.1.0
+ZOClock 1.1.2
 -------------
 
 The ZOClock (Zero-One Clock) program emulate
@@ -42,7 +42,7 @@ $ sudo cp ./zoclock /usr/local/bin/zoclock
 or
 $ sudo make install
 or
-$ sudo make DESTDIR=/opt/bin install
+$ sudo make INSTALL_ROOT=/opt/bin install
 
 Debian/Ubuntu users
 -------------------

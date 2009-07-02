@@ -20,7 +20,7 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QMouseEvent>
-#include <QDateTime>
+#include <QDate>
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QFontDialog>
@@ -65,6 +65,7 @@ BinClockWidget::appendToToolTip(int n, QString & tip_text)
 }
 
 const QString BinClockWidget::TOOLTIP_TIME_SEPERATOR(":");
+const QString BinClockWidget::TOOLTIP_DATE_SEPERATOR("-");
 const QString BinClockWidget::TOOLTIP_TIME_AM_SIG(" AM");
 const QString BinClockWidget::TOOLTIP_TIME_PM_SIG(" PM");
 const QString BinClockWidget::TOOLTIP_TIME_LSEPERATOR(" / ");
@@ -76,6 +77,7 @@ BinClockWidget::updateToolTip(bool force_show)
         return;
     }
     QString tip_text("");
+    bool f = false;
     if (popup_menu.is_time_on_tooltip()) {
         appendToToolTip(wallClockHour(), tip_text);
         tip_text.append(TOOLTIP_TIME_SEPERATOR);
@@ -87,11 +89,20 @@ BinClockWidget::updateToolTip(bool force_show)
                 tip_text.append(TOOLTIP_TIME_AM_SIG);
             }
         }
-        if (popup_menu.is_unixtime_on_tooltip()) {
-            tip_text.append(TOOLTIP_TIME_LSEPERATOR);
-        }
+	f = true;
+    }
+    if (popup_menu.is_date_on_tooltip()) {
+        if (f) tip_text.append(TOOLTIP_TIME_LSEPERATOR);
+        QDate d(wall_clock_datetime.date());
+        appendToToolTip(d.day(), tip_text);
+        tip_text.append(TOOLTIP_DATE_SEPERATOR);
+        appendToToolTip(d.month(), tip_text);
+        tip_text.append(TOOLTIP_DATE_SEPERATOR);
+        appendToToolTip(d.year(), tip_text);
+	f = true;
     }
     if (popup_menu.is_unixtime_on_tooltip()) {
+        if (f) tip_text.append(TOOLTIP_TIME_LSEPERATOR);
         appendToToolTip(wall_clock_time, tip_text);
     }
     popup_tip.setText(tip_text);
@@ -116,9 +127,9 @@ BinClockWidget::updateToolTip(bool force_show)
 bool
 BinClockWidget::updateWallClock()
 {
-    QDateTime d = QDateTime::currentDateTime();
-    QTime t = d.time();
-    wall_clock_time = d.toTime_t();
+    wall_clock_datetime = QDateTime::currentDateTime();
+    QTime t = wall_clock_datetime.time();
+    wall_clock_time = wall_clock_datetime.toTime_t();
     int m = t.minute();
     if (m == wall_clock_minute) {
         return false;
@@ -221,15 +232,16 @@ BinClockWidget::BinClockWidget(QRect const & sg)
     QPoint window_xy;
     bool lock, ontop;
     int h_mode, n_base;
-    bool tt_tm, tt_utm;
+    bool tt_tm, tt_dt, tt_utm;
     settings.read(window_xy, c0, c1, lock, ontop, h_mode, n_base,
-                  tt_tm, tt_utm,
+                  tt_tm, tt_dt, tt_utm,
                   tt_font, tt_fg, tt_bg);
     popup_menu.set_window_lock(lock);
     popup_menu.set_window_ontop(ontop);
     popup_menu.set_hours_mode(h_mode);
     popup_menu.set_base(n_base);
     popup_menu.set_time_on_tooltip(tt_tm);
+    popup_menu.set_date_on_tooltip(tt_dt);
     popup_menu.set_unixtime_on_tooltip(tt_utm);
     setOnTop(ontop);
     setColor(0, c0);
@@ -325,6 +337,7 @@ BinClockWidget::menu_save_setings()
                    popup_menu.get_hours_mode(),
                    popup_menu.get_base(),
                    popup_menu.is_time_on_tooltip(),
+		   popup_menu.is_date_on_tooltip(),
                    popup_menu.is_unixtime_on_tooltip(),
                    popup_tip.font(),
                    popup_tip.palette().color(QPalette::Foreground),

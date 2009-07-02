@@ -37,6 +37,7 @@ private:
     QAction* tooltip_hex_action;
     QAction* tooltip_unixtime_action;
     QAction* tooltip_time_action;
+    QAction* tooltip_date_action;
     int hours_mode_idx;
 
 public:
@@ -53,6 +54,8 @@ public:
     void set_base(int);
     bool is_time_on_tooltip();
     void set_time_on_tooltip(bool);
+    bool is_date_on_tooltip();
+    void set_date_on_tooltip(bool);
     bool is_unixtime_on_tooltip();
     void set_unixtime_on_tooltip(bool);
     bool is_any_on_tooltip();

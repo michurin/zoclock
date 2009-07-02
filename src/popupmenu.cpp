@@ -65,6 +65,10 @@ PopupMenu::PopupMenu(QWidget * parent)
     a->setCheckable(true);
     m->addAction(a);
     tooltip_time_action = a;
+    a = new QAction(tr("Date"), this);
+    a->setCheckable(true);
+    m->addAction(a);
+    tooltip_date_action = a;
     a = new QAction(tr("Unix time"), this);
     a->setCheckable(true);
     m->addAction(a);
@@ -195,6 +199,18 @@ PopupMenu::set_time_on_tooltip(bool v)
 }
 
 bool
+PopupMenu::is_date_on_tooltip()
+{
+    return tooltip_date_action->isChecked();
+}
+
+void
+PopupMenu::set_date_on_tooltip(bool v)
+{
+    tooltip_date_action->setChecked(v);
+}
+
+bool
 PopupMenu::is_unixtime_on_tooltip()
 {
     return tooltip_unixtime_action->isChecked();
@@ -210,7 +226,8 @@ bool
 PopupMenu::is_any_on_tooltip()
 {
     return tooltip_unixtime_action->isChecked() ||
-           tooltip_time_action->isChecked();
+           tooltip_time_action->isChecked() ||
+           tooltip_date_action->isChecked();
 }
 
 /*

@@ -39,6 +39,7 @@ private:
     static const QString FIELD_HOURS_MODE;
     static const QString FIELD_NUM_BASE;
     static const QString FIELD_TT_TIME;
+    static const QString FIELD_TT_DATE;
     static const QString FIELD_TT_UNIXTIME;
     static const QString FIELD_TT_FONT;
     static const QString FIELD_TT_FG;
@@ -51,6 +52,7 @@ private:
     static const int def_hours_mode;
     static const int def_num_base;
     static const bool def_tt_time;
+    static const bool def_tt_date;
     static const bool def_tt_unixtime;
     
     QString def_tt_fg;
@@ -66,10 +68,10 @@ public:
     Settings(QPoint const &);
     void get_oem_colors(QColor &, QColor &, QColor &, QColor &);
     void read(QPoint &, QColor &, QColor &,
-             bool &, bool &, int &, int &, bool &, bool &,
+             bool &, bool &, int &, int &, bool &, bool &, bool &,
              QFont &, QColor &, QColor &);
     void write(QPoint const &, QColor const &, QColor const &,
-             bool, bool, int, int, bool, bool,
+             bool, bool, int, int, bool, bool, bool,
              QFont const &, QColor const &, QColor const &);
 };
 
