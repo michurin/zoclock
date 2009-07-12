@@ -1,4 +1,4 @@
-VERSION = 1.1.2
+VERSION = 1.2.0
 QT += core gui
 CONFIG += release warn_on qt # debug
 OBJECTS_DIR = build

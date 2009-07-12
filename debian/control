@@ -10,7 +10,7 @@ Package: zoclock
 Architecture: i386
 Depends: ${shlibs:Depends}, libqtcore4, libqtgui4
 Description: The ZOClock (Zero-One Clock) is a desktip
- widget. It emulate two-line LED display to show the
+ widget. It emulates two-line LED display to show the
  time in binary form in small pretty window.
  Many aspects of ZOClock may be tune to good fit your
  desktup environment.

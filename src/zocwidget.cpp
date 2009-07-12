@@ -89,7 +89,7 @@ BinClockWidget::updateToolTip(bool force_show)
                 tip_text.append(TOOLTIP_TIME_AM_SIG);
             }
         }
-	f = true;
+        f = true;
     }
     if (popup_menu.is_date_on_tooltip()) {
         if (f) tip_text.append(TOOLTIP_TIME_LSEPERATOR);
@@ -99,7 +99,7 @@ BinClockWidget::updateToolTip(bool force_show)
         appendToToolTip(d.month(), tip_text);
         tip_text.append(TOOLTIP_DATE_SEPERATOR);
         appendToToolTip(d.year(), tip_text);
-	f = true;
+        f = true;
     }
     if (popup_menu.is_unixtime_on_tooltip()) {
         if (f) tip_text.append(TOOLTIP_TIME_LSEPERATOR);
@@ -337,7 +337,7 @@ BinClockWidget::menu_save_setings()
                    popup_menu.get_hours_mode(),
                    popup_menu.get_base(),
                    popup_menu.is_time_on_tooltip(),
-		   popup_menu.is_date_on_tooltip(),
+                   popup_menu.is_date_on_tooltip(),
                    popup_menu.is_unixtime_on_tooltip(),
                    popup_tip.font(),
                    popup_tip.palette().color(QPalette::Foreground),

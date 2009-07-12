@@ -225,9 +225,9 @@ PopupMenu::set_unixtime_on_tooltip(bool v)
 bool
 PopupMenu::is_any_on_tooltip()
 {
-    return tooltip_unixtime_action->isChecked() ||
-           tooltip_time_action->isChecked() ||
-           tooltip_date_action->isChecked();
+    return tooltip_unixtime_action->isChecked()
+        || tooltip_time_action->isChecked()
+        || tooltip_date_action->isChecked();
 }
 
 /*
