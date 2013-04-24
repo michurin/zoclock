@@ -1,15 +1,20 @@
-ZOClock 1.2.0
--------------
+ZOClock 1.2.1
+=============
 
 The ZOClock (Zero-One Clock) program emulate
 two-line LED display to show the time in binary form.
 The upper line of LEDs displays hours (12 hour clock).
 The lower line of LEDs displays minutes.
 
-You can get ZOClock here: http://zoclock.googlecode.com/
+You can get ZOClock here: <http://zoclock.googlecode.com/>
+
 
 Licensing
 ---------
+
+Copyright (c) 2009-2013 Alexey Michurin <a.michurin@gmail.com>
+
+All rights reserved.
 
 ZOClock is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,40 +29,75 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with ZOClock.  If not, see <http://www.gnu.org/licenses/>.
 
+
 Building
 --------
 
-Before building, you will need to have the Qt4 library installed
+Before building, you will need to have the Qt4/Qt5 library installed
 on your system (http://www.trolltech.com/).
 
 Build:
-$ qmake # or qmake-qt4
-$ make  # or mingw32-make or nmake or other
+
+    $ qmake # or qmake-qt4 or qmake-qt5
+    $ make  # or mingw32-make or nmake or other
 
 Test it:
-$ ./zoclock
+
+    $ ./zoclock
 
 Install:
-$ sudo cp ./zoclock /usr/local/bin/zoclock
+
+    $ sudo cp ./zoclock /usr/local/bin/zoclock
+
 or
-$ sudo make install
+
+    $ sudo make install
+
 or
-$ sudo make INSTALL_ROOT=/opt/bin install
+
+    $ sudo make INSTALL_ROOT=/opt/bin install
+
 
 Debian/Ubuntu users
 -------------------
 
 Download binary package form download page.
 Install:
-$ sudo dpkg -i zoclock_1.1.0-1_i386.deb
+
+    $ sudo dpkg -i zoclock_1.1.0-1_i386.deb
+
 Deinstall:
-$ sudo dpkg -r zoclock
+
+    $ sudo dpkg -r zoclock
 
 If you want to build Debian package yourself, you
 need download complete source tree, with debian
 directory. To create package run the command.
-$ dpkg-buildpackage -rfakeroot
+
+    $ dpkg-buildpackage -rfakeroot
+
+
+Contributors
+------------
+
+Abderahmane Habaieb <habaieb.a@gmail.com>
+
+- Compatible with Qt5
+- Fix compile-time bugs on Windows 7, Qt 5.0.2
+
+
+Known problems
+--------------
+
+Some X11 window managers can temporary lost an application window
+in some rare conditions. Known workaround is to remove flag
+`Qt::X11BypassWindowManagerHint` from `BinClockWidget` constructor
+in `src/zocwidget.cpp`.
+
+If you are faced with this phenomenon, please let me know.
+
 
 Enjoy!
-Alexey Michurin
-a.michurin@gmail.com
+------
+
+Alexey Michurin <a.michurin@gmail.com>

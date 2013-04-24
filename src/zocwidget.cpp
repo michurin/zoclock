@@ -1,18 +1,18 @@
 /*
- * Copyright 2009 Alexey Michurin
- * 
+ * Copyright 2009-2013 Alexey Michurin
+ *
  * This file is part of ZOClock.
- * 
+ *
  * ZOclock is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * ZOclock is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with ZOClock. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -118,7 +118,7 @@ BinClockWidget::updateToolTip(bool force_show)
         tl.setX(screen_geometry.right() - popup_tip.width());
     }
     popup_tip.move(tl);
-    
+
     if (force_show) {
         popup_tip.show();
     }
@@ -155,7 +155,7 @@ BinClockWidget::setColor(int i, QColor const & c)
 {
     palettes[i].setColor(QPalette::Background, c);
     palettes[i].setColor(QPalette::Light, c.lighter());
-    palettes[i].setColor(QPalette::QPalette::Dark, c.darker());
+    palettes[i].setColor(QPalette::Dark, c.darker());
 }
 
 void
@@ -218,7 +218,7 @@ BinClockWidget::BinClockWidget(QRect const & sg)
             b->setParent(this);
             b->setFrameStyle(QFrame::Panel | QFrame::Raised);
             b->setLineWidth(ZOC_WINDOW_BORDER);
-            b->setAutoFillBackground(true);             
+            b->setAutoFillBackground(true);
             layout->addWidget(b, r, c);
         }
     }
@@ -281,7 +281,7 @@ BinClockWidget::mouseMoveEvent(QMouseEvent* e)
         QPoint new_place = e->globalPos() - click_pos;
         move(new_place);
     }
-}           
+}
 
 void
 BinClockWidget::enterEvent(QEvent *)
@@ -379,7 +379,7 @@ BinClockWidget::menu_about()
         this,
         tr("About ZOClock"),
         tr("<h3>ZOClock " STR(ZOCVERSION) "</h3>"
-           "<p>Copyright (c) 2009 Alexey Michurin</p>"
+           "<p>Copyright (c) 2009-2013 Alexey Michurin</p>"
            "<p>Released under the terms of the"
            " <a href=\"http://www.gnu.org/licenses/\">GNU GPL v3</a></p>"
            "<p>The ZOClock (Zero-One Clock) is a tiny desktop widget."
@@ -396,7 +396,7 @@ BinClockWidget::menu_about()
            "Alexey Michurin &lt;a.michurin@gmail.com&gt;</a></p>"
            ));
 }
-    
+
 void
 BinClockWidget::menu_about_qt()
 {

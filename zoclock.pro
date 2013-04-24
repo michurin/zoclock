@@ -1,5 +1,10 @@
-VERSION = 1.2.0
+VERSION = 1.2.1
 QT += core gui
+
+# Qt5 compatibility
+# Thanks to Abderahmane Habaieb <habaieb.a@gmail.com>
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 CONFIG += release warn_on qt # debug
 OBJECTS_DIR = build
 MOC_DIR = build
